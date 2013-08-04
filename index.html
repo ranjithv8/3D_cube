@@ -3,7 +3,7 @@
 	<head>
 		<title>Solar System</title>
               
-		<script src="js/jquery-1.10.2js"></script>
+		<script src="js/jquery-1.10.2.js"></script>
 		<script src="js/mousewheel.js"></script>
 		<script src="js/three.min.js"></script>
 		<script src="initiatecube.js"></script>
@@ -11,7 +11,11 @@
 		
 		<script>
 			$(document).ready(function () {
-				var ru = new Rubiks("#cube");
+				var ru = new Rubiks({
+					contentSpace:'#cube',
+					width:'400',
+					height:'400'
+				});
 			});
 		</script>
 		
