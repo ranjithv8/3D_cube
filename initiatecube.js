@@ -49,16 +49,18 @@ var scene,renderer,camera;
 		}
 
 		function createACube(){
-
-			var green =	new THREE.MeshLambertMaterial({map:THREE.ImageUtils.loadTexture('green.png')});
-			var	orange = new THREE.MeshLambertMaterial({map:THREE.ImageUtils.loadTexture('orange.png')});
-			var	red	= new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture('red.png')});
-			var	blue = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture('blue.png')});
-			var	yellow = new THREE.MeshLambertMaterial({map:THREE.ImageUtils.loadTexture('yellow.png')});
-			var	white =	new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture('white.png')}); 
-		
-			var materials1=[red, blue,orange,yellow,green,white];
-		
+			var textures = [];
+			var materials1 = [];
+			textures.push(new THREE.Texture(new gcanvas("green")));
+			textures.push(new THREE.Texture(new gcanvas("orange")));
+			textures.push(new THREE.Texture(new gcanvas("red")));
+			textures.push(new THREE.Texture(new gcanvas("blue")));
+			textures.push(new THREE.Texture(new gcanvas("yellow")));
+			textures.push(new THREE.Texture(new gcanvas("white")));
+			for (i=0;i<textures.length;i++){
+				materials1.push(new THREE.MeshLambertMaterial({map:textures[i]}));
+				textures[i].needsUpdate = true;
+			}
 			cube=new THREE.CubeGeometry(CUBEHEIGHT,CUBEWIDTH,CUBEDEPTH);
 			cube.faces[0].materialIndex = 0;
 			cube.faces[1].materialIndex = 1;
@@ -145,5 +147,19 @@ var scene,renderer,camera;
 		}
 		init();
 		drawRubik();
+	}
+
+	function gcanvas(color){
+		var canva = document.createElement("canvas");
+		var context = canva.getContext("2d");
+		canva.height=115;
+		canva.width=115;
+		context.fillStyle = color;
+		context.lineWidth = "20";
+		context.strokeStyle="black";
+		context.rect(5,5,100,100);
+		context.stroke();
+		context.fill();
+		return canva
 	}
 })(jQuery,THREE);
