@@ -3,7 +3,7 @@ var scene,renderer,camera;
 (function($,THREE){
 	var WIDTH,HEIGHT,CUBEHEIGHT,CUBEWIDTH,CUBEDEPTH;
 	var pointLight = [];
-	var cube,materials=[],cubeWithMaterial,rubiks=[[[],[],[]],[[],[],[]],[[],[],[]]];
+	var rubiks=[[[],[],[]],[[],[],[]],[[],[],[]]];
 	var lastTime=0,angularSpeed=0.2;
 	var unitX,unitY;
 	var contentSpace;
@@ -45,8 +45,8 @@ var scene,renderer,camera;
 
 	function createACube(){
 		var textures = [];
-		var materials1 = [];
-		cube=new THREE.CubeGeometry(CUBEHEIGHT,CUBEWIDTH,CUBEDEPTH);
+		var materials = [];
+		var cube=new THREE.CubeGeometry(CUBEHEIGHT,CUBEWIDTH,CUBEDEPTH);
 		textures.push(new THREE.Texture(new gcanvas("green")));
 		textures.push(new THREE.Texture(new gcanvas("orange")));
 		textures.push(new THREE.Texture(new gcanvas("red")));
@@ -55,13 +55,13 @@ var scene,renderer,camera;
 		textures.push(new THREE.Texture(new gcanvas("white")));
 
 		for (i=0;i<textures.length;i++){
-			materials1.push(new THREE.MeshLambertMaterial({map:textures[i]}));
+			materials.push(new THREE.MeshLambertMaterial({map:textures[i]}));
 			textures[i].needsUpdate = true;
 			cube.faces[i].materialIndex = i;
 		}
 		
-		var cubeMaterial=new THREE.MeshFaceMaterial(materials1);
-		cubeWithMaterial=new THREE.Mesh(cube,cubeMaterial);
+		var cubeMaterial=new THREE.MeshFaceMaterial(materials);
+		var cubeWithMaterial=new THREE.Mesh(cube,cubeMaterial);
 		return cubeWithMaterial;
 	}
 
@@ -109,6 +109,20 @@ var scene,renderer,camera;
 		eventBinding(contentSpace+" canvas");
 	}
 
+	function gcanvas(color){
+		var canva = document.createElement("canvas");
+		var context = canva.getContext("2d");
+		canva.height=115;
+		canva.width=115;
+		context.fillStyle = color;
+		context.lineWidth = "20";
+		context.strokeStyle="black";
+		context.rect(5,5,100,100);
+		context.stroke();
+		context.fill();
+		return canva
+	}
+
 	function eventBinding(rubikScreen){
 
 		$(rubikScreen).bind('mousewheel',function(e,d){
@@ -142,19 +156,5 @@ var scene,renderer,camera;
 		$(rubikScreen).on("mouseup",function(){
 			$(rubikScreen).unbind("mousemove");			
 		});*/
-	}
-
-	function gcanvas(color){
-		var canva = document.createElement("canvas");
-		var context = canva.getContext("2d");
-		canva.height=115;
-		canva.width=115;
-		context.fillStyle = color;
-		context.lineWidth = "20";
-		context.strokeStyle="black";
-		context.rect(5,5,100,100);
-		context.stroke();
-		context.fill();
-		return canva
 	}
 })(jQuery,THREE);
