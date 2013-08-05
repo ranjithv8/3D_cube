@@ -1,10 +1,10 @@
 var i=0,j=0,k=0,PI=3.14;
 var theta,xshift,yshift,zshift;
 
-$(window).on("mousedown",function(e){
+$("#cube").on("mousedown","canvas",function(e){
 	var prevX=e.pageX;
 	var prevY=e.pageY;
-	$(window).on("mousemove",function(e){
+	$("#cube canvas").on("mousemove",function(e){
 		camera.lookAt(scene.position);
 		
 		if(camera.position.x > CAMERARADIUS || camera.position.x < (-1*CAMERARADIUS))
@@ -56,7 +56,6 @@ $(window).on("mousedown",function(e){
 
 
 
-$(window).on("mouseup",function(){
-	$(window).unbind("mousemove");
-			
+$("#cube").on("mouseup",function(){
+	$("#cube canvas").unbind("mousemove");
 });
