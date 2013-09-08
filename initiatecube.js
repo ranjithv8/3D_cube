@@ -41,7 +41,7 @@ var scene,renderer,camera;
 		}*/
 		init();
 		drawRubik();
-	}
+	};
 
 	function createACube(){
 		var textures = [];
@@ -57,9 +57,8 @@ var scene,renderer,camera;
 		for (i=0;i<textures.length;i++){
 			materials.push(new THREE.MeshLambertMaterial({map:textures[i]}));
 			textures[i].needsUpdate = true;
-			cube.faces[i].materialIndex = i;
 		}
-		
+
 		var cubeMaterial=new THREE.MeshFaceMaterial(materials);
 		var cubeWithMaterial=new THREE.Mesh(cube,cubeMaterial);
 		return cubeWithMaterial;
@@ -120,7 +119,7 @@ var scene,renderer,camera;
 		context.rect(5,5,100,100);
 		context.stroke();
 		context.fill();
-		return canva
+		return canva;
 	}
 
 	function eventBinding(rubikScreen){
@@ -135,7 +134,7 @@ var scene,renderer,camera;
 			CAMERARADIUS=camera.position.z;
 			renderer.render(scene,camera);
 		});
-	
+
 		/*$(rubikScreen).on("mousedown",function(e){
 			var prevX=e.pageX;
 			var prevY=e.pageY;
